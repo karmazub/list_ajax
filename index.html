@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+    
+.innput {
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+.ittem {
+    margin-bottom: 50px;
+}
+.director {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: bold;
+}
+.year {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: bold;
+}
+.buttonn {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: black;
+    margin-left: 5px;
+}
+
+.fallingdown {
+    transition: height 2s;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.fallingdown_image {
+    width: 180px;
+    cursor: pointer;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 2;
+    background: rgba(255,255,255, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+.popup_img {
+    width: 300px;
+    display: block;
+    position: absolute;
+    z-index: 5;
+}
+.popup_close {
+    position: absolute;
+    right: 60px;
+    top: 60px;
+    z-index: 6;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.pp_c {
+    width: 23px;
+    height: 2px;
+    position: absolute;
+    z-index: 4;
+    left: 2px;
+    top: 12px;
+    background: black;
+}
+
+/*.popup_close {
+    position: absolute;
+    right: 60px;
+    top: 60px;
+    z-index: 6;
+    width: 30px;
+}*/
+
+.one {
+    transform: rotate(45deg);
+}
+.two {
+    transform: rotate(-45deg);
+}
+
+.down {
+    height: 300px;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-12 innput">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Search" aria-describedby="sizing-addon1">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+
+
+var store = [
+
+    {
+        id : 1,
+        title : "Сокровища Сьерра Мадре",
+        director : "Джон Хьюстон",
+        year : "1948",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster18622_2_prev.jpg"
+    },{
+        id : 2,
+        title : "Золото Маккенны",
+        director : "Дж. Ли Томпсон",
+        year : "1969",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster24097_3_p.jpg"
+    },{
+        id : 3,
+        title : "На несколько долларов больше",
+        director : "Серджио Леоне",
+        year : "1965",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster38060_3_p.jpg"
+    },{
+        id : 4,
+        title : "Большие гонки",
+        director : "Блейк Эдвардс",
+        year : "1965",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster29350_7_p.jpg"
+    },{
+        id : 5,
+        title : "Однажды на Диком Западе",
+        director : "Серджио Леоне",
+        year : "1968",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster19221_2_prev.jpg"
+    },{
+        id : 6,
+        title : "Преисподняя",
+        director : "Мартин Кулховен",
+        year : "2016",
+        poster : "http://www.kinonews.ru/insimgs/2016/poster/poster63702_1_p.jpg"
+    },{
+        id : 7,
+        title : "Назад в будущее 3",
+        director : "Роберт Земекис",
+        year : "1990",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster4417_1_prev.jpg"
+    },{
+        id : 8,
+        title : "Буч Кэссиди и Сандэнс Кид",
+        director : "Джордж Рой Хилл",
+        year : "1969",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster11535_6_prev.jpg"
+    },{
+        id : 9,
+        title : "Хороший, плохой, злой",
+        director : "Серджио Леоне",
+        year : "1966",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster37857_13_p.jpg"
+    },{
+        id : 10,
+        title : "Зорро",
+        director : "Дуччо Тессари",
+        year : "1975",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster47760_3_p.jpg"
+    },{
+        id : 11,
+        title : "Тумстоун: Легенда дикого запада",
+        director : "Джордж Пан Косматос, Кевин Жарр",
+        year : "1993",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster25946_2_p.jpg"
+    },{
+        id : 12,
+        title : "Красное солнце",
+        director : "Теренс Янг",
+        year : "1971",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster25045_2_p.jpg"
+    },{
+        id : 13,
+        title : "Танцующий с волками",
+        director : "Кевин Костнер",
+        year : "1990",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3793_2_prev.jpg"
+    },{
+        id : 14,
+        title : "Герой - одиночка",
+        director : "Уолтер Хилл",
+        year : "1996",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster22584_2_p.jpg"
+    },{
+        id : 15,
+        title : "Человек с бульвара Капуцинов",
+        director : "Алла Сурикова",
+        year : "1987",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster38259_1_p.jpg"
+    },{
+        id : 16,
+        title : "За пригоршню долларов",
+        director : "Серджио Леоне, Монте Хеллман",
+        year : "1964",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster18443_2_prev.jpg"
+    },{
+        id : 17,
+        title : "Мэверик",
+        director : "Ричард Доннер",
+        year : "1994",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3392_3_prev.jpg"
+    },{
+        id : 18,
+        title : "Непрощенный",
+        director : "Клинт Иствуд",
+        year : "1992",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster12953_1_prev.jpg"
+    },{
+        id : 19,
+        title : "Джанго освобожденный",
+        director : "Квентин Тарантино",
+        year : "2012",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster25988_1_p.jpg"
+    },{
+        id : 20,
+        title : "Легенды осени",
+        director : "Эдвард Цвик",
+        year : "1994",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster4313_2_prev.jpg"
+    },{
+        id : 21,
+        title : "Хороший, плохой, долбанутый",
+        director : "Джи-Вун Ким, Ким Чжи Ун",
+        year : "2008",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster4914_7_prev.jpg"
+    },{
+        id : 22,
+        title : "Мертвец",
+        director : "Джим Джармуш",
+        year : "1995",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3259_3_prev.jpg"
+    },{
+        id : 23,
+        title : "Спасение",
+        director : "Кристиан Левринг",
+        year : "2014",
+        poster : "http://www.kinonews.ru/insimgs/2015/poster/poster51015_1_p.jpg"
+    },{
+        id : 24,
+        title : "Предложение",
+        director : "Джон Хиллкоут",
+        year : "2005",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster24609_1_p.jpg"
+    },{
+        id : 25,
+        title : "Неуловимые мстители",
+        director : "Эдмонд Кеосаян",
+        year : "1966",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster18531_2_prev.jpg"
+    },{
+        id : 26,
+        title : "Блуберри",
+        director : "Ян Каунен",
+        year : "2004",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster19140_2_prev.jpg"
+    },{
+        id : 27,
+        title : "Аппалуза",
+        director : "ролях: Вигго Мортенсен, Рене Зеллвегер",
+        year : "2008",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster116_1_prev.jpg"
+    },{
+        id : 28,
+        title : "Всадник без головы",
+        director : "Владимир Вайншток",
+        year : "1973",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster23090_1_p.jpg"
+    },{
+        id : 29,
+        title : "Открытый простор",
+        director : "Кевин Костнер",
+        year : "2003",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster19226_2_prev.jpg"
+    },{
+        id : 30,
+        title : "Железная хватка",
+        director : "Итан Коэн, Джоэл Коэн",
+        year : "2010",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster12180_1_prev.jpg"
+    },{
+        id : 31,
+        title : "Омерзительная восьмерка",
+        director : "Квентин Тарантино",
+        year : "2015",
+        poster : "http://www.kinonews.ru/insimgs/2015/poster/poster58160_1_p.jpg"
+    },{
+        id : 32,
+        title : "Великолепная семерка",
+        director : "Джон Стерджес",
+        year : "1960",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster9403_5_prev.jpg"
+    },{
+        id : 33,
+        title : "Дрожь земли 4: Легенда начинается",
+        director : "С.С. Уилсон",
+        year : "2004",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster33305_1_p.jpg"
+    },{
+        id : 34,
+        title : "Молодые стрелки",
+        director : "Кристофер Кэйн",
+        year : "1988",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster4568_4_prev.jpg"
+    },{
+        id : 35,
+        title : "Поезд на Юму",
+        director : "Джеймс Мэнголд",
+        year : "2007",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3401_4_prev.jpg"
+    },{
+        id : 36,
+        title : "Как трусливый Роберт Форд убил Джесси Джеймса",
+        director : "Эндрю Доминик",
+        year : "2007",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3236_2_prev.jpg"
+    },{
+        id : 37,
+        title : "Искатели",
+        director : "Джон Форд",
+        year : "1956",
+        poster : "http://www.kinonews.ru/insimgs/2016/poster/poster65032_4_p.jpg"
+    },{
+        id : 38,
+        title : "Маска Зорро",
+        director : "Мартин Кэмпбелл",
+        year : "1998",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3471_1_prev.jpg"
+    },{
+        id : 39,
+        title : "Шанхайский полдень",
+        director : "Том Дей",
+        year : "2000",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster26084_1_p.jpg"
+    },{
+        id : 40,
+        title : "Банда Келли",
+        director : "Грегор Джордан",
+        year : "2003",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster19133_2_prev.jpg"
+    },{
+        id : 41,
+        title : "Строго на запад",
+        director : "Джон Маклин",
+        year : "2015",
+        poster : "http://www.kinonews.ru/insimgs/2016/poster/poster59269_1_p.jpg"
+    },{
+        id : 42,
+        title : "Шанхайские рыцари",
+        director : "Дэвид Добкин",
+        year : "2003",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster23754_4_p.jpg"
+    },{
+        id : 43,
+        title : "Быстрый и мертвый",
+        director : "Сэм Рейми",
+        year : "1995",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster3463_2_prev.jpg"
+    },{
+        id : 44,
+        title : "Австралия",
+        director : "Баз Лурман",
+        year : "2008",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster1013_1_prev.jpg"
+    },{
+        id : 45,
+        title : "Уайатт Эрп",
+        director : "Лоуренс Кэздан",
+        year : "1994",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster4186_1_prev.jpg"
+    },{
+        id : 46,
+        title : "Костяной томагавк",
+        director : "С. Крэйг Залер",
+        year : "2015",
+        poster : "http://www.kinonews.ru/insimgs/2015/poster/poster56359_5_p.jpg"
+    },{
+        id : 47,
+        title : "Бандитки",
+        director : "Хоаким Роннинг, Эспен Сандберг",
+        year : "2006",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster4613_4_prev.jpg"
+    },{
+        id : 48,
+        title : "Легенда Зорро",
+        director : "Мартин Кэмпбелл",
+        year : "2005",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster6790_7_prev.jpg"
+    },{
+        id : 49,
+        title : "Великолепная семерка",
+        director : "Антуан Фукуа",
+        year : "2016",
+        poster : "http://www.kinonews.ru/insimgs/2016/poster/poster66778_2_p.jpg"
+    },{
+        id : 50,
+        title : "Неуловимый Люк",
+        director : "Джеймс Хат",
+        year : "2009",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster13268_6_prev.jpg"
+    },{
+        id : 51,
+        title : "Темная долина",
+        director : "Андреас Прохазка",
+        year : "2014",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster45183_1_p.jpg"
+    },{
+        id : 52,
+        title : "Дикий, дикий Запад",
+        director : "Барри Зонненфельд",
+        year : "1999",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster17726_6_prev.jpg"
+    },{
+        id : 53,
+        title : "Западный мир",
+        director : "Майкл Крайтон",
+        year : "1973",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster44510_1_p.jpg"
+    },{
+        id : 54,
+        title : "Убийца внутри меня",
+        director : "Майкл Уинтерботтом",
+        year : "2010",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster38542_5_p.jpg"
+    },{
+        id : 55,
+        title : "От заката до рассвета 3: Дочь палача",
+        director : "П.Дж. Пеше",
+        year : "1999",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster6496_1_prev.jpg"
+    },{
+        id : 56,
+        title : "Ковбои против Пришельцев",
+        director : "Джон Фавро",
+        year : "2011",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster14820_3_prev.jpg"
+    },{
+        id : 57,
+        title : "Нелепая шестерка",
+        director : "Фрэнк Корачи",
+        year : "2015",
+        poster : "http://www.kinonews.ru/insimgs/2015/poster/poster56974_1_p.jpg"
+    },{
+        id : 58,
+        title : "Миллион способов потерять голову",
+        director : "Сет МакФарлейн",
+        year : "2014",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster40286_1_p.jpg"
+    },{
+        id : 59,
+        title : "Джона Хекс",
+        director : "Джимми Хейуорд",
+        year : "2010",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster8816_4_prev.jpg"
+    },{
+        id : 60,
+        title : "Путь воина",
+        director : "Снгму Ли",
+        year : "2010",
+        poster : "http://www.kinonews.ru/insimgs/poster/poster11376_6_prev.jpg"
+    },{
+        id : 61,
+        title : "Джейн берет ружье",
+        director : "Гэвин О`Коннор",
+        year : "2016",
+        poster : "http://www.kinonews.ru/insimgs/2016/poster/poster60380_4_p.jpg"
+    }
+];
+
+function createItem(title, director, year, poster) {
+    'use strict';
+    var co = document.createElement('div');
+    co.setAttribute('class', 'col-md-12 ittem');
+
+    var media = document.createElement('div');
+    media.setAttribute('class', 'media');
+
+    var mediaLeft = document.createElement('div');
+    mediaLeft.setAttribute('class', 'media-left media-middle');
+
+    var a = document.createElement('a');
+    a.setAttribute('href', '#');
+
+    var img = document.createElement('img');
+    img.setAttribute('class', 'media-object');
+    img.setAttribute('src', poster);
+    img.setAttribute('alt', title);
+
+    var mediaBody = document.createElement('div');
+    mediaBody.setAttribute('class', 'media-body');
+
+    var h4 = document.createElement('h4');
+    h4.setAttribute('class', 'media-heading');
+    h4.innerText = title;
+
+    var dirP = document.createElement('p');
+
+    var yearP = document.createElement('p');
+
+    var dirSpanTitle = document.createElement('span');
+    dirSpanTitle.innerText = 'Режисер: ';
+
+    var dirSpan = document.createElement('span');
+    dirSpan.setAttribute('class', 'director');
+    dirSpan.innerText = director;
+
+    var yearSpanTitle = document.createElement('span');
+    yearSpanTitle.innerText = 'Год: ';
+
+    var yearSpan = document.createElement('span');
+    yearSpan.setAttribute('class', 'year');
+    yearSpan.innerText = year;
+
+    dirP.appendChild(dirSpanTitle);
+    dirP.appendChild(dirSpan);
+    yearP.appendChild(yearSpanTitle);
+    yearP.appendChild(yearSpan);
+
+    mediaBody.appendChild(h4);
+    mediaBody.appendChild(dirP);
+    mediaBody.appendChild(yearP);
+
+    a.appendChild(img);
+
+    mediaLeft.appendChild(a);
+
+    media.appendChild(mediaLeft);
+    media.appendChild(mediaBody);
+
+    co.appendChild(media);
+
+
+    var fallingdown = document.createElement('div');
+    fallingdown.classList.add('fallingdown');
+
+    var buttonn = document.createElement('div');
+    buttonn.classList.add('buttonn');
+
+
+    var dot1 = document.createElement('div');
+    dot1.classList.add('dot');
+    var dot2 = document.createElement('div');
+    dot2.classList.add('dot');
+    var dot3 = document.createElement('div');
+    dot3.classList.add('dot');
+
+    buttonn.appendChild(dot1);
+    buttonn.appendChild(dot2);
+    buttonn.appendChild(dot3);
+
+    co.appendChild(fallingdown);
+    co.appendChild(buttonn);
+
+    return co;
+}
+
+function render(list) {
+    var df = document.createElement('div');
+    df.setAttribute('class', 'itemcontainer');
+    list.forEach(function (e) {
+        df.appendChild(createItem(e.title, e.director, e.year,  e.poster));
+    });
+    return df;
+}
+
+var container = document.querySelector('.container');
+container.appendChild(render(store));
+
+
+var search = document.querySelector('input[type="text"]');
+
+search.onkeyup = function () {
+    var valuee = this.value.toLowerCase();
+    var newMass = store.filter(function (e) {
+        return e.title.toLowerCase().includes(valuee);
+    });
+    var ic = document.querySelector('.itemcontainer');
+    ic.parentElement.replaceChild(render(newMass), ic);
+};
+
+var buttonns = document.querySelectorAll('.buttonn');
+var fallingdown = document.querySelector('.fallingdown');
+
+function ajaxReq(img, el) {
+    var ajaxRequesttImg = new XMLHttpRequest();
+    ajaxRequesttImg.open('GET', img, true);
+    ajaxRequesttImg.responseType = 'blob';
+    ajaxRequesttImg.send();
+    ajaxRequesttImg.onload = function () {
+        console.log(this.status);
+        if (this.status == 200) {
+            console.log(this.response);
+        }
+        var img  = document.createElement('img');
+        img.src = URL.createObjectURL(this.response);
+        img.classList.add('fallingdown_image');
+        var url = this.response;
+        el.appendChild(img);
+        img.addEventListener('click', function(){ popUp(url); });
+    };
+}
+
+function popUp(url) {
+    var popup = document.createElement('div');
+    popup.setAttribute('class', 'popup');
+    var popupImg = document.createElement('img');
+    popupImg.classList.add('popup_img');
+    popupImg.src = URL.createObjectURL(url);
+    popupImg.setAttribute('alt', 'image');
+    var popupClose = document.createElement('div');
+    popupClose.classList.add('popup_close');
+    var one = document.createElement('div');
+    one.setAttribute('class', 'pp_c one');
+    var two = document.createElement('div');
+    two.setAttribute('class', 'pp_c two');
+
+    popupClose.appendChild(one);
+    popupClose.appendChild(two);
+
+    popup.appendChild(popupImg);
+    popup.appendChild(popupClose);
+
+    document.body.appendChild(popup);
+
+    popupClose.onclick = function () {
+        popup.remove();
+    };
+    return false;
+}
+
+buttonns.forEach(function (e){
+    var prevEl = e.previousElementSibling;
+    e.onclick = function () {
+
+
+        if (!prevEl.classList.contains('down')){
+            prevEl.classList.add('down');
+            ajaxReq('dr1.jpg', prevEl);
+            ajaxReq('dr2.jpg', prevEl);
+            ajaxReq('dr3.jpg', prevEl);
+        } else {
+            prevEl.classList.remove('down');
+            prevEl.innerHTML = '';
+        }
+
+    };
+});
+</script>
+</body>
+</html>
